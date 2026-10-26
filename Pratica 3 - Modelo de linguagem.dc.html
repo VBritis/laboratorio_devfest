@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="_ds/max-design-system-4b19a955-8277-4b34-91f3-faa7900e03d6/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/max-design-system-4b19a955-8277-4b34-91f3-faa7900e03d6/tokens/colors.css">
+<link rel="stylesheet" href="_ds/max-design-system-4b19a955-8277-4b34-91f3-faa7900e03d6/tokens/typography.css">
+<link rel="stylesheet" href="_ds/max-design-system-4b19a955-8277-4b34-91f3-faa7900e03d6/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/max-design-system-4b19a955-8277-4b34-91f3-faa7900e03d6/tokens/radii.css">
+<link rel="stylesheet" href="_ds/max-design-system-4b19a955-8277-4b34-91f3-faa7900e03d6/tokens/effects.css">
+<link rel="stylesheet" href="_ds/max-design-system-4b19a955-8277-4b34-91f3-faa7900e03d6/tokens/base.css">
+<link rel="stylesheet" href="_ds/max-design-system-4b19a955-8277-4b34-91f3-faa7900e03d6/styles.css">
+<script src="_ds/max-design-system-4b19a955-8277-4b34-91f3-faa7900e03d6/_ds_bundle.js"></script>
+<style>
+body{margin:0;background:#0b0915;color:#fff;font-family:Inter,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#c9a0ff}a:hover{color:#e4d2ff}
+</style>
+</helmet>
+<div style="min-height:100vh;background:radial-gradient(120% 40% at 50% 0%,rgba(111,69,232,.22),rgba(0,0,0,0) 70%),#0b0915;color:#fff;font-family:Inter,sans-serif">
+<div style="max-width:760px;margin:0 auto;padding:20px 20px 72px;box-sizing:border-box;display:flex;flex-direction:column;gap:24px">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+    <a href="Laboratorio.dc.html" style="color:rgba(255,255,255,.7);text-decoration:none;font-size:14px">← Laboratório</a>
+    <span style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.5px;color:#c9a0ff">PRÁTICA 3 · 5 MIN</span>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <h1 style="margin:0;font:500 32px/1.15 Inter,sans-serif;letter-spacing:-.5px;text-wrap:balance">Monte seu modelo de linguagem</h1>
+    <p style="margin:0;font:400 16px/1.5 Inter,sans-serif;color:rgba(255,255,255,.72)">Problema: um gerador de frases no estilo de Noite na Taverna.</p>
+  </div>
+  <div style="border:0.5px solid rgba(201,160,255,.45);border-radius:16px;padding:14px 16px;background:rgba(201,160,255,.07);font:italic 400 16px/1.45 Inter,sans-serif;color:#e4d2ff">Aposta: “Com memória de 1 ou de 4 palavras, qual escreve mais parecido com o autor?”</div>
+  <sc-if value="{{ sampleText }}" hint-placeholder-val="{{ false }}">
+    <div style="border:0.5px solid rgba(255,255,255,.2);border-radius:16px;padding:12px 16px;font:400 14px/1.45 Inter,sans-serif;color:rgba(255,255,255,.7)">Usando um texto de exemplo curto. Para usar o livro, coloque o arquivo em dados/noite-na-taverna.txt.</div>
+  </sc-if>
+  <div style="display:flex;flex-wrap:wrap;gap:8px">
+    <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
+      <button onClick="{{ s.go }}" style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.5px;padding:10px 12px;border-radius:999px;cursor:pointer;background:{{ s.bg }};border:0.5px solid {{ s.bd }};color:{{ s.col }}">{{ s.label }}</button>
+    </sc-for>
+  </div>
+
+  <sc-if value="{{ isS0 }}" hint-placeholder-val="{{ true }}">
+    <div style="display:flex;flex-direction:column;gap:16px;background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.1);border-radius:16px;padding:20px">
+      <span style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.5px;color:#9aa3b8">MONTE · A MEMÓRIA DO SEU GERADOR</span>
+      <p style="margin:0;font:400 16px/1.5 Inter,sans-serif;color:rgba(255,255,255,.85)">Memória é quantas palavras ele olha para trás antes de escolher a próxima.</p>
+      <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px">
+        <sc-for list="{{ memList }}" as="o" hint-placeholder-count="4">
+          <button onClick="{{ o.pick }}" style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 0;border-radius:16px;cursor:pointer;color:#ffffff;background:{{ o.bg }};border:0.5px solid {{ o.bd }}"><span style="font:300 32px/1 'JetBrains Mono',monospace">{{ o.n }}</span><span style="font:400 12px/1 Inter,sans-serif;color:rgba(255,255,255,.6)">{{ o.u }}</span></button>
+        </sc-for>
+      </div>
+      <div style="border:0.5px solid rgba(255,255,255,.12);border-radius:16px;padding:14px 16px;font:400 16px/1.5 Inter,sans-serif;color:rgba(255,255,255,.8)">Com memória {{ mem }}, depois de <span style="color:#c9a0ff">“{{ memExample }}”</span> ele procura no livro o que costuma vir em seguida.</div>
+      <x-import component-from-global-scope="MAXDesignSystem_4b19a9.Button" on-click="{{ goTreine }}" hint-size="100%,48px">Próximo: treine →</x-import>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isS1 }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:16px;background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.1);border-radius:16px;padding:20px">
+      <span style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.5px;color:#9aa3b8">TREINE · LENDO O LIVRO E CONTANDO</span>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="height:8px;border-radius:4px;background:rgba(255,255,255,.08);overflow:hidden"><div style="height:100%;border-radius:4px;background:#c9a0ff;width:{{ readPct }}"></div></div>
+        <span style="font:400 14px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,.6)">{{ readLabel }}</span>
+      </div>
+      <span style="font:500 16px/1.3 Inter,sans-serif">Depois de <span style="color:#c9a0ff">“{{ watch }}”</span> vem…</span>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <sc-for list="{{ watchRows }}" as="r" hint-placeholder-count="6">
+          <div style="display:grid;grid-template-columns:minmax(80px,140px) minmax(0,1fr) 44px 52px;align-items:center;gap:10px">
+            <span style="font:400 16px/1 Inter,sans-serif;overflow:hidden;text-overflow:ellipsis">{{ r.w }}</span>
+            <div style="height:14px;border-radius:6px;background:rgba(255,255,255,.06);overflow:hidden"><div style="height:100%;border-radius:6px;background:#6f45e8;width:{{ r.bar }}"></div></div>
+            <span style="font:400 14px/1 'JetBrains Mono',monospace;text-align:right">{{ r.n }}</span>
+            <span style="font:400 14px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,.6);text-align:right">{{ r.p }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <p style="margin:0;font:400 14px/1.5 Inter,sans-serif;color:rgba(255,255,255,.6)">Colunas: quantas vezes apareceu e a chance de ser a próxima palavra.</p>
+      <x-import component-from-global-scope="MAXDesignSystem_4b19a9.Button" on-click="{{ train }}" hint-size="100%,48px">{{ trainLabel }}</x-import>
+      <sc-if value="{{ trained }}" hint-placeholder-val="{{ false }}">
+        <x-import component-from-global-scope="MAXDesignSystem_4b19a9.Button" variant="card" on-click="{{ goTeste }}" hint-size="100%,48px">Próximo: escreva →</x-import>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isS2 }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:16px;background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.1);border-radius:16px;padding:20px">
+      <span style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.5px;color:#9aa3b8">TESTE · ESCREVA O COMEÇO DE UMA FRASE DE TERROR</span>
+      <input value="{{ prompt }}" onInput="{{ onPrompt }}" placeholder="A noite estava" style="font:400 16px/1.4 Inter,sans-serif;color:#ffffff;background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.2);border-radius:16px;padding:14px 16px;outline:none"></input>
+      <div style="min-height:96px;border:0.5px solid rgba(255,255,255,.14);border-radius:16px;padding:16px;font:400 20px/1.5 Inter,sans-serif;background:rgba(0,0,0,.25)"><span style="color:rgba(255,255,255,.6)">{{ prompt }}</span> <span style="color:#ffffff">{{ genText }}</span></div>
+      <sc-if value="{{ copied }}" hint-placeholder-val="{{ false }}">
+        <div style="border:0.5px solid #c9a0ff;border-radius:16px;padding:12px 16px;background:rgba(201,160,255,.08);font:400 14px/1.45 Inter,sans-serif;color:#e4d2ff">Copiado do livro, palavra por palavra: {{ copied }} palavras seguidas. Decorou a prova.</div>
+      </sc-if>
+      <sc-if value="{{ hasCands }}" hint-placeholder-val="{{ false }}">
+        <span style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.5px;color:#9aa3b8">CHANCE DE CADA PRÓXIMA PALAVRA, DEPOIS DE “{{ ctxLabel }}”</span>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <sc-for list="{{ cands }}" as="r" hint-placeholder-count="6">
+            <div style="display:grid;grid-template-columns:minmax(80px,140px) minmax(0,1fr) 52px;align-items:center;gap:10px">
+              <span style="font:400 16px/1 Inter,sans-serif;color:{{ r.col }}">{{ r.w }}</span>
+              <div style="height:14px;border-radius:6px;background:rgba(255,255,255,.06);overflow:hidden"><div style="height:100%;border-radius:6px;width:{{ r.bar }};background:{{ r.barCol }}"></div></div>
+              <span style="font:400 14px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,.6);text-align:right">{{ r.p }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{ backoff }}" hint-placeholder-val="{{ false }}">
+        <p style="margin:0;font:400 14px/1.5 Inter,sans-serif;color:rgba(255,255,255,.6)">{{ backoff }}</p>
+      </sc-if>
+      <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px">
+        <x-import component-from-global-scope="MAXDesignSystem_4b19a9.Button" on-click="{{ step1 }}" hint-size="100%,48px">+1 palavra</x-import>
+        <x-import component-from-global-scope="MAXDesignSystem_4b19a9.Button" variant="secondary" on-click="{{ step20 }}" hint-size="100%,48px">+20</x-import>
+        <x-import component-from-global-scope="MAXDesignSystem_4b19a9.Button" variant="ghost" on-click="{{ restart }}" hint-size="100%,48px">Apagar</x-import>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isS3 }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:16px;background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.1);border-radius:16px;padding:20px">
+      <span style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.5px;color:#9aa3b8">COMPARE (OPCIONAL) · MESMO COMEÇO: “A NOITE ESTAVA”</span>
+      <div style="display:flex;flex-direction:column;gap:8px;padding:16px;border-radius:16px;border:0.5px solid #c9a0ff;background:rgba(201,160,255,.07)">
+        <span style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.5px;color:#e4d2ff">SEU GERADOR · MEMÓRIA {{ mem }} · {{ corpusWords }} PALAVRAS LIDAS</span>
+        <span style="font:400 18px/1.5 Inter,sans-serif">A noite estava {{ cmpMine }}</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;padding:16px;border-radius:16px;border:0.5px solid rgba(255,255,255,.14);background:rgba(255,255,255,.03)">
+        <span style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.5px;color:#9aa3b8">UM LLM · TREINADO COM TRILHÕES DE PALAVRAS · EXEMPLO</span>
+        <span style="font:400 18px/1.5 Inter,sans-serif">A noite estava fria e sem lua quando entramos na taverna. Lá dentro, entre a fumaça dos cachimbos e o cheiro de vinho azedo, cinco homens pálidos contavam histórias que nenhum deles queria lembrar.</span>
+      </div>
+      <p style="margin:0;font:400 14px/1.5 Inter,sans-serif;color:rgba(255,255,255,.6)">Os dois fazem a mesma coisa: escolhem a próxima palavra pela chance. O LLM olha para muito mais palavras para trás e aprendeu com muito mais texto.</p>
+      <x-import component-from-global-scope="MAXDesignSystem_4b19a9.Button" variant="secondary" on-click="{{ regenCmp }}" hint-size="100%,48px">Gerar de novo</x-import>
+    </div>
+  </sc-if>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const SAMPLE='A noite estava escura e fria, e na taverna os homens bebiam em silêncio. Era uma noite de chuva, e o vento batia nas janelas como a mão de um morto. O velho levantou a taça e disse: bebamos à noite, que é a mãe dos segredos. A noite estava longa, e ninguém queria voltar para casa. Na taverna havia vinho, fumaça e histórias de mulheres pálidas e de homens perdidos. Era uma noite sem lua, e a vela tremia sobre a mesa. O moço pálido olhou para a taça e disse: a noite é eterna para quem não dorme. Os homens riram, e o vento continuou batendo nas janelas da taverna.';
+function tok(t){return t.toLowerCase().replace(/[“”"«»—–\-_()\[\]]/g,' ').match(/[a-zà-ÿ0-9']+|[.,;!?:]/gi)||[];}
+function build(T,k){const M=new Map();for(let i=k;i<T.length;i++){const key=T.slice(i-k,i).join(' ');let m=M.get(key);if(!m){m=new Map();M.set(key,m);}m.set(T[i],(m.get(T[i])||0)+1);}return M;}
+function join(ws){return ws.join(' ').replace(/ ([.,;!?:])/g,'$1');}
+const STEP=['MONTE','TREINE','TESTE','COMPARE (OPCIONAL)'];
+class Component extends DCLogic{
+ state={step:0,mem:2,loaded:false,sample:false,read:0,trained:false,prompt:'A noite estava',gen:[],last:null,copied:0,cmp:''};
+ componentDidMount(){fetch('dados/noite-na-taverna.txt').then(r=>{if(!r.ok)throw 0;return r.text();}).then(t=>{if(t.length<2000)throw 0;this.setT(t,false);}).catch(()=>this.setT(SAMPLE,true));}
+ componentWillUnmount(){cancelAnimationFrame(this.raf);}
+ setT(t,sample){this.T=tok(t);this.text=' '+this.T.join(' ')+' ';this.models={};this.setState({loaded:true,sample});}
+ model(k){if(!this.T)return new Map();if(!this.models[k])this.models[k]=build(this.T,k);return this.models[k];}
+ watchCtx(k){const M=this.model(k);let best=null,bn=0;M.forEach((m,key)=>{if(!key.split(' ').includes('noite'))return;let n=0;m.forEach(v=>n+=v);if(n>bn){bn=n;best=key;}});if(!best){M.forEach((m,key)=>{let n=0;m.forEach(v=>n+=v);if(n>bn){bn=n;best=key;}});}return best||'';}
+ train(){if(!this.T)return;cancelAnimationFrame(this.raf);const k=this.state.mem;this.model(k);let r=0;const N=this.T.length,per=Math.max(200,Math.ceil(N/90));this.setState({read:0,trained:false});
+  const tick=()=>{r=Math.min(N,r+per);this.setState({read:r});if(r<N)this.raf=requestAnimationFrame(tick);else this.setState({trained:true});};tick();}
+ partialCounts(key,upto){const k=key.split(' ').length,T=this.T,m=new Map(),kw=key.split(' ');for(let i=k;i<upto;i++){let ok=true;for(let j=0;j<k;j++)if(T[i-k+j]!==kw[j]){ok=false;break;}if(ok)m.set(T[i],(m.get(T[i])||0)+1);}return m;}
+ dist(ctx){for(let k=this.state.mem;k>=1;k--){if(ctx.length<k)continue;const key=ctx.slice(-k).join(' '),m=this.model(k).get(key);if(m){let n=0;m.forEach(v=>n+=v);return {k,key,list:[...m.entries()].map(([w,c])=>({w,c,p:c/n})).sort((a,b)=>b.c-a.c)};}}
+  const m=this.model(1);const keys=[...m.keys()];const key=keys[Math.floor(Math.random()*keys.length)];return {k:0,key:'',list:[{w:key,c:1,p:1}]};}
+ pick(list){let r=Math.random(),a=0;for(const it of list){a+=it.p;if(r<=a)return it.w;}return list[0].w;}
+ gen(n){if(!this.T)return;let G=[...this.state.gen],last=null;for(let i=0;i<n;i++){const ctx=[...tok(this.state.prompt),...G],d=this.dist(ctx),w=this.pick(d.list);last={...d,chosen:w};G.push(w);}
+  const all=[...tok(this.state.prompt),...G];let best=0;for(let L=Math.min(all.length,40);L>=8;L--){let found=false;for(let s=0;s+L<=all.length;s++){if(this.text.includes(' '+all.slice(s,s+L).join(' ')+' ')){found=true;break;}}if(found){best=L;break;}}
+  this.setState({gen:G,last,copied:best});}
+ makeCmp(){if(!this.T)return '';let G=[];for(let i=0;i<25;i++){const ctx=['a','noite','estava',...G];G.push(this.pick(this.dist(ctx).list));}return join(G);}
+ renderVals(){const s=this.state,k=s.mem;
+  const steps=STEP.map((l,i)=>({label:(i+1)+' · '+l,go:()=>this.setState({step:i,cmp:i===3?this.makeCmp():s.cmp}),bg:s.step===i?'rgba(201,160,255,.16)':'rgba(255,255,255,.03)',bd:s.step===i?'#c9a0ff':'rgba(255,255,255,.14)',col:s.step===i?'#ffffff':(i===3?'rgba(255,255,255,.45)':'rgba(255,255,255,.75)')}));
+  const memList=[1,2,3,4].map(n=>({n:String(n),u:n===1?'palavra':'palavras',bg:k===n?'rgba(201,160,255,.14)':'rgba(255,255,255,.03)',bd:k===n?'#c9a0ff':'rgba(255,255,255,.14)',pick:()=>{cancelAnimationFrame(this.raf);this.setState({mem:n,trained:false,read:0,gen:[],last:null,copied:0});}}));
+  const ex=['a','noite','estava','escura'];const memExample=ex.slice(0,k).join(' ');
+  const N=this.T?this.T.length:0,watch=s.step===1&&this.T?this.watchCtx(k):'';
+  let watchRows=[];if(watch){const m=this.partialCounts(watch,s.read);let n=0;m.forEach(v=>n+=v);const L=[...m.entries()].sort((a,b)=>b[1]-a[1]).slice(0,6),mx=L.length?L[0][1]:1;watchRows=L.map(([w,c])=>({w,n:String(c),p:Math.round(c/n*100)+'%',bar:Math.round(c/mx*100)+'%'}));}
+  const last=s.last;const cands=last?last.list.slice(0,6).map(it=>{const mx=last.list[0].p;return {w:it.w,p:Math.round(it.p*100)+'%',bar:Math.round(it.p/mx*100)+'%',col:it.w===last.chosen?'#c9a0ff':'#ffffff',barCol:it.w===last.chosen?'#c9a0ff':'#6f45e8'};}):[];
+  const backoff=last&&last.k<k?(last.k?'Ele nunca viu essas '+k+' palavras juntas no livro, então olhou só para as últimas '+last.k+'.':'Ele nunca viu essas palavras no livro, então chutou uma palavra qualquer.'):null;
+  return {steps,isS0:s.step===0,isS1:s.step===1,isS2:s.step===2,isS3:s.step===3,sampleText:s.loaded&&s.sample,memList,mem:String(k),memExample,
+   goTreine:()=>this.setState({step:1}),goTeste:()=>this.setState({step:2}),readPct:N?Math.round(s.read/N*100)+'%':'0%',readLabel:s.read.toLocaleString('pt-BR')+' de '+N.toLocaleString('pt-BR')+' palavras lidas',watch,watchRows,
+   train:()=>this.train(),trained:s.trained,trainLabel:s.trained?'Ler de novo':(s.read?'Lendo…':'Ler o livro'),prompt:s.prompt,onPrompt:e=>this.setState({prompt:e.target.value,gen:[],last:null,copied:0}),
+   genText:join(s.gen),copied:s.copied?String(s.copied):null,hasCands:!!last,cands,ctxLabel:last?(last.key||'?'):'',backoff,step1:()=>this.gen(1),step20:()=>this.gen(20),restart:()=>this.setState({gen:[],last:null,copied:0}),
+   corpusWords:N.toLocaleString('pt-BR'),cmpMine:s.cmp,regenCmp:()=>this.setState({cmp:this.makeCmp()})};}
+}
+</script>
+</body>
+</html>

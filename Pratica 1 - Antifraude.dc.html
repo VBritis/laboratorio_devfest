@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="_ds/max-design-system-4b19a955-8277-4b34-91f3-faa7900e03d6/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/max-design-system-4b19a955-8277-4b34-91f3-faa7900e03d6/tokens/colors.css">
+<link rel="stylesheet" href="_ds/max-design-system-4b19a955-8277-4b34-91f3-faa7900e03d6/tokens/typography.css">
+<link rel="stylesheet" href="_ds/max-design-system-4b19a955-8277-4b34-91f3-faa7900e03d6/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/max-design-system-4b19a955-8277-4b34-91f3-faa7900e03d6/tokens/radii.css">
+<link rel="stylesheet" href="_ds/max-design-system-4b19a955-8277-4b34-91f3-faa7900e03d6/tokens/effects.css">
+<link rel="stylesheet" href="_ds/max-design-system-4b19a955-8277-4b34-91f3-faa7900e03d6/tokens/base.css">
+<link rel="stylesheet" href="_ds/max-design-system-4b19a955-8277-4b34-91f3-faa7900e03d6/styles.css">
+<script src="_ds/max-design-system-4b19a955-8277-4b34-91f3-faa7900e03d6/_ds_bundle.js"></script>
+<style>
+body{margin:0;background:#0b0915;color:#fff;font-family:Inter,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#c9a0ff}a:hover{color:#e4d2ff}
+</style>
+</helmet>
+<div style="min-height:100vh;background:radial-gradient(120% 40% at 50% 0%,rgba(111,69,232,.22),rgba(0,0,0,0) 70%),#0b0915;color:#fff;font-family:Inter,sans-serif">
+<div style="max-width:760px;margin:0 auto;padding:20px 20px 72px;box-sizing:border-box;display:flex;flex-direction:column;gap:24px">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+    <a href="Laboratorio.dc.html" style="color:rgba(255,255,255,.7);text-decoration:none;font-size:14px">← Laboratório</a>
+    <span style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.5px;color:#c9a0ff">PRÁTICA 1 · 7 MIN</span>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <h1 style="margin:0;font:500 32px/1.15 Inter,sans-serif;letter-spacing:-.5px;text-wrap:balance">Monte seu antifraude</h1>
+    <p style="margin:0;font:400 16px/1.5 Inter,sans-serif;color:rgba(255,255,255,.72)">Problema: aprovar ou bloquear cada compra.</p>
+  </div>
+  <div style="border:0.5px solid rgba(201,160,255,.45);border-radius:16px;padding:14px 16px;background:rgba(201,160,255,.07);font:italic 400 16px/1.45 Inter,sans-serif;color:#e4d2ff">Aposta: “Quanto mais informação e mais neurônios, melhor?”</div>
+  <div style="display:flex;flex-wrap:wrap;gap:8px">
+    <sc-for list="{{ steps }}" as="s" hint-placeholder-count="5">
+      <button onClick="{{ s.go }}" style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.5px;padding:10px 12px;border-radius:999px;cursor:pointer;background:{{ s.bg }};border:0.5px solid {{ s.bd }};color:{{ s.col }}">{{ s.label }}</button>
+    </sc-for>
+  </div>
+
+  <sc-if value="{{ isS0 }}" hint-placeholder-val="{{ true }}">
+    <div style="display:flex;flex-direction:column;gap:16px;background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.1);border-radius:16px;padding:20px">
+      <span style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.5px;color:#9aa3b8">AQUECIMENTO</span>
+      <p style="margin:0;font:400 16px/1.5 Inter,sans-serif;color:rgba(255,255,255,.85)">Gire os dois botões até a linha separar as compras normais (cinza) das fraudes (lilás). Acima da linha, a máquina bloqueia.</p>
+      <canvas ref="{{ cvA }}" width="640" height="420" style="width:100%;height:auto;display:block;border-radius:12px"></canvas>
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px">
+        <label style="display:flex;flex-direction:column;gap:8px;font:400 14px/1 Inter,sans-serif;color:rgba(255,255,255,.75)">Botão 1 · inclinação <input type="range" min="-1.6" max="1.2" step="0.01" value="{{ m }}" onInput="{{ onM }}" style="width:100%;accent-color:#c9a0ff"></input></label>
+        <label style="display:flex;flex-direction:column;gap:8px;font:400 14px/1 Inter,sans-serif;color:rgba(255,255,255,.75)">Botão 2 · altura <input type="range" min="-0.2" max="1.2" step="0.01" value="{{ c }}" onInput="{{ onC }}" style="width:100%;accent-color:#c9a0ff"></input></label>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
+        <span style="font:300 40px/1 'JetBrains Mono',monospace;color:#ffffff">{{ warmErr }}</span>
+        <span style="font:400 16px/1.4 Inter,sans-serif;color:rgba(255,255,255,.7)">compras erradas, de 120</span>
+      </div>
+      <sc-if value="{{ warmMsg }}" hint-placeholder-val="{{ false }}">
+        <p style="margin:0;font:400 16px/1.5 Inter,sans-serif;color:#e4d2ff">{{ warmMsg }}</p>
+      </sc-if>
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px">
+        <x-import component-from-global-scope="MAXDesignSystem_4b19a9.Button" on-click="{{ descend }}" hint-size="100%,48px">Deixar a máquina descer</x-import>
+        <x-import component-from-global-scope="MAXDesignSystem_4b19a9.Button" variant="secondary" on-click="{{ resetWarm }}" hint-size="100%,48px">Recomeçar</x-import>
+      </div>
+      <x-import component-from-global-scope="MAXDesignSystem_4b19a9.Button" variant="card" on-click="{{ goMonte }}" hint-size="100%,48px">Próximo: monte a sua rede →</x-import>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isS1 }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:20px;background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.1);border-radius:16px;padding:20px">
+      <span style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.5px;color:#9aa3b8">MONTE · QUAIS INFORMAÇÕES A REDE VÊ</span>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px">
+        <sc-for list="{{ featList }}" as="f" hint-placeholder-count="6">
+          <button onClick="{{ f.toggle }}" style="text-align:left;display:flex;flex-direction:column;gap:6px;padding:14px;border-radius:16px;cursor:pointer;font-family:Inter,sans-serif;background:{{ f.bg }};border:0.5px solid {{ f.bd }};color:#ffffff">
+            <span style="font:500 16px/1.2 Inter,sans-serif">{{ f.n }}</span>
+            <span style="font:400 14px/1.35 Inter,sans-serif;color:rgba(255,255,255,.6)">{{ f.d }}</span>
+          </button>
+        </sc-for>
+      </div>
+      <span style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.5px;color:#9aa3b8">QUANTOS NEURÔNIOS</span>
+      <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px">
+        <sc-for list="{{ neuronList }}" as="o" hint-placeholder-count="4">
+          <button onClick="{{ o.pick }}" style="padding:14px 0;border-radius:16px;cursor:pointer;font:400 24px/1 'JetBrains Mono',monospace;background:{{ o.bg }};border:0.5px solid {{ o.bd }};color:#ffffff">{{ o.n }}</button>
+        </sc-for>
+      </div>
+      <p style="margin:0;font:400 14px/1.5 Inter,sans-serif;color:rgba(255,255,255,.6)">1 neurônio faz uma reta. Mais neurônios fazem curvas.</p>
+      <x-import component-from-global-scope="MAXDesignSystem_4b19a9.Button" on-click="{{ goTreine }}" hint-size="100%,48px">Próximo: treine →</x-import>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isS2 }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:16px;background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.1);border-radius:16px;padding:20px">
+      <span style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.5px;color:#9aa3b8">TREINE · {{ configLabel }}</span>
+      <canvas ref="{{ cvT }}" width="640" height="420" style="width:100%;height:auto;display:block;border-radius:12px"></canvas>
+      <div style="display:flex;flex-wrap:wrap;gap:16px;font:400 14px/1 Inter,sans-serif;color:rgba(255,255,255,.75)"><span style="display:flex;align-items:center;gap:8px"><span style="width:10px;height:10px;border-radius:999px;background:rgba(216,212,230,.7)"></span>compra normal</span><span style="display:flex;align-items:center;gap:8px"><span style="width:10px;height:10px;border-radius:999px;background:#c9a0ff"></span>fraude</span></div>
+      <p style="margin:0;font:400 14px/1.5 Inter,sans-serif;color:rgba(255,255,255,.6)">{{ planeNote }}</p>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.5px;color:#9aa3b8">TAMANHO DO ERRO · RODADA {{ epoch }} DE 400</span>
+        <canvas ref="{{ cvL }}" width="640" height="160" style="width:100%;height:auto;display:block;border-radius:12px"></canvas>
+      </div>
+      <sc-if value="{{ trained }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
+          <span style="font:300 40px/1 'JetBrains Mono',monospace">{{ trainPct }}</span>
+          <span style="font:400 16px/1.4 Inter,sans-serif;color:rgba(255,255,255,.7)">de acerto na prova do ano passado (os dados de treino)</span>
+        </div>
+      </sc-if>
+      <x-import component-from-global-scope="MAXDesignSystem_4b19a9.Button" on-click="{{ train }}" hint-size="100%,48px">{{ trainLabel }}</x-import>
+      <sc-if value="{{ trained }}" hint-placeholder-val="{{ false }}">
+        <x-import component-from-global-scope="MAXDesignSystem_4b19a9.Button" variant="card" on-click="{{ goTeste }}" hint-size="100%,48px">Próximo: a prova de verdade →</x-import>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isS3 }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:16px;background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.1);border-radius:16px;padding:20px">
+      <span style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.5px;color:#9aa3b8">TESTE · COMPRAS NOVAS, UMA A UMA</span>
+      <sc-if value="{{ needTrain }}" hint-placeholder-val="{{ false }}">
+        <p style="margin:0;font:400 16px/1.5 Inter,sans-serif;color:rgba(255,255,255,.8)">Treine a sua rede antes da prova.</p>
+        <x-import component-from-global-scope="MAXDesignSystem_4b19a9.Button" on-click="{{ goTreine }}" hint-size="100%,48px">Ir para o treino</x-import>
+      </sc-if>
+      <sc-if value="{{ trained }}" hint-placeholder-val="{{ false }}">
+        <sc-if value="{{ cur }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:12px;border:0.5px solid rgba(255,255,255,.14);border-radius:16px;padding:16px;background:rgba(0,0,0,.25)">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px">
+              <span style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.5px;color:#9aa3b8">COMPRA {{ cur.n }} DE 300</span>
+              <span style="font:300 32px/1 'JetBrains Mono',monospace">{{ cur.valor }}</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px">
+              <sc-for list="{{ cur.info }}" as="i" hint-placeholder-count="6">
+                <div style="display:flex;flex-direction:column;gap:4px"><span style="font:400 12px/1.2 Inter,sans-serif;color:rgba(255,255,255,.5)">{{ i.k }}</span><span style="font:500 16px/1.2 Inter,sans-serif">{{ i.v }}</span></div>
+              </sc-for>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-top:12px;border-top:0.5px solid rgba(255,255,255,.1)">
+              <span style="font:600 16px/1 Inter,sans-serif;letter-spacing:.5px;color:{{ cur.decCol }}">{{ cur.dec }} · {{ cur.p }}</span>
+              <span style="font:400 14px/1.3 Inter,sans-serif;color:{{ cur.okCol }}">{{ cur.truth }}</span>
+            </div>
+          </div>
+        </sc-if>
+        <canvas ref="{{ cvX }}" width="640" height="420" style="width:100%;height:auto;display:block;border-radius:12px"></canvas>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px 16px;font:400 14px/1.2 Inter,sans-serif;color:rgba(255,255,255,.8)">
+          <span style="display:flex;align-items:center;gap:8px"><span style="width:12px;height:12px;flex:none;border-radius:999px;background:#c9a0ff"></span>fraude que pegamos</span>
+          <span style="display:flex;align-items:center;gap:8px"><span style="width:12px;height:12px;flex:none;border-radius:999px;background:#ff6b8a"></span>fraude que passou</span>
+          <span style="display:flex;align-items:center;gap:8px"><span style="width:9px;height:9px;flex:none;border-radius:999px;border:2.5px solid #ff6b8a"></span>cliente bom bloqueado</span>
+          <span style="display:flex;align-items:center;gap:8px"><span style="width:12px;height:12px;flex:none;border-radius:999px;background:rgba(216,212,230,.5)"></span>cliente bom aprovado</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px">
+          <sc-for list="{{ tally }}" as="t" hint-placeholder-count="3">
+            <div style="display:flex;flex-direction:column;gap:6px;padding:12px;border-radius:16px;border:0.5px solid rgba(255,255,255,.1)"><span style="font:300 24px/1 'JetBrains Mono',monospace">{{ t.v }}</span><span style="font:400 12px/1.3 Inter,sans-serif;color:rgba(255,255,255,.6)">{{ t.k }}</span></div>
+          </sc-for>
+        </div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px">
+          <x-import component-from-global-scope="MAXDesignSystem_4b19a9.Button" on-click="{{ nextBuy }}" hint-size="100%,48px">Próxima compra</x-import>
+          <x-import component-from-global-scope="MAXDesignSystem_4b19a9.Button" variant="secondary" on-click="{{ allBuys }}" hint-size="100%,48px">Ver as 300</x-import>
+        </div>
+        <sc-if value="{{ testDone }}" hint-placeholder-val="{{ false }}">
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px">
+            <div style="display:flex;flex-direction:column;gap:6px;padding:16px;border-radius:16px;border:0.5px solid rgba(255,255,255,.12)"><span style="font:400 12px/1.3 Inter,sans-serif;color:rgba(255,255,255,.6)">prova do ano passado</span><span style="font:300 32px/1 'JetBrains Mono',monospace">{{ trainPct }}</span></div>
+            <div style="display:flex;flex-direction:column;gap:6px;padding:16px;border-radius:16px;border:0.5px solid #c9a0ff;background:rgba(201,160,255,.07)"><span style="font:400 12px/1.3 Inter,sans-serif;color:#e4d2ff">prova de verdade</span><span style="font:300 32px/1 'JetBrains Mono',monospace">{{ testPct }}</span></div>
+          </div>
+          <x-import component-from-global-scope="MAXDesignSystem_4b19a9.Button" variant="card" on-click="{{ goMonte }}" hint-size="100%,48px">Mudar a rede e tentar de novo</x-import>
+        </sc-if>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isS4 }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:16px;background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.1);border-radius:16px;padding:20px">
+      <span style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.5px;color:#9aa3b8">COMPARE (OPCIONAL) · NA PROVA DE VERDADE, 300 COMPRAS</span>
+      <sc-for list="{{ compareRows }}" as="r" hint-placeholder-count="3">
+        <div style="display:flex;flex-direction:column;gap:10px;padding:16px;border-radius:16px;border:0.5px solid {{ r.bd }};background:{{ r.bg }}">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span style="font:500 16px/1.2 Inter,sans-serif">{{ r.name }}</span><span style="font:300 32px/1 'JetBrains Mono',monospace">{{ r.acc }}</span></div>
+          <span style="font:400 14px/1.4 Inter,sans-serif;color:rgba(255,255,255,.6)">{{ r.desc }}</span>
+          <span style="font:400 14px/1.4 'JetBrains Mono',monospace;color:rgba(255,255,255,.8)">{{ r.detail }}</span>
+        </div>
+      </sc-for>
+      <p style="margin:0;font:400 14px/1.5 Inter,sans-serif;color:rgba(255,255,255,.6)">Aprovar tudo já acerta 2 de cada 3 compras, porque a maioria é normal. E não pega nenhuma fraude.</p>
+    </div>
+  </sc-if>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+function rng(seed){let s=seed;return()=>{s=(s*16807)%2147483647;return (s-1)/2147483646;};}
+function nrm(r){const u=r()||1e-9,v=r();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+function gen(n,seed,train){const r=rng(seed),out=[];for(let i=0;i<n;i++){const f=r()<0.3?1:0;let hora,valor,novo,dist,ult,aniv;
+ if(f){hora=(3+nrm(r)*3+24)%24;valor=Math.exp(6.4+nrm(r)*0.85);novo=r()<0.6?1:0;dist=-Math.log(r()||1e-9)*30;ult=Math.floor(r()*3)+(r()<0.5?1:0);aniv=train?(r()<0.45?1:0):(r()<0.03?1:0);}
+ else{hora=Math.min(23.9,Math.max(0,14+nrm(r)*4.8));valor=Math.exp(5.3+nrm(r)*0.95);novo=r()<0.2?1:0;dist=-Math.log(r()||1e-9)*9;ult=r()<0.2?1:0;aniv=train?(r()<0.02?1:0):(r()<0.12?1:0);}
+ valor=Math.min(4000,Math.max(8,valor));dist=Math.min(300,dist);out.push({valor,hora,novo,dist,ult,aniv,t:f});}return out;}
+function enc(c){return {valor:Math.log(c.valor),hora:c.hora,novo:c.novo,dist:Math.log(1+c.dist),ult:c.ult,aniv:c.aniv};}
+function scaler(rows,keys){const E=rows.map(enc),mu={},sd={};keys.forEach(k=>{const v=E.map(e=>e[k]);mu[k]=v.reduce((a,b)=>a+b,0)/v.length;sd[k]=Math.sqrt(v.reduce((a,b)=>a+(b-mu[k])**2,0)/v.length)||1;});return c=>{const e=enc(c);return keys.map(k=>(e[k]-mu[k])/sd[k]);};}
+function netInit(d,h,seed){const r=rng(seed),P={d,h};if(!h){P.w=new Float64Array(d);P.b=new Float64Array(1);}else{P.W1=new Float64Array(h*d).map(()=>nrm(r)*Math.sqrt(2/d));P.b1=new Float64Array(h).map(()=>nrm(r)*0.8);P.W2=new Float64Array(h).map(()=>nrm(r)*Math.sqrt(1/h));P.b2=new Float64Array(1);}P.keys=h?['W1','b1','W2','b2']:['w','b'];P.m={};P.v={};P.keys.forEach(k=>{P.m[k]=new Float64Array(P[k].length);P.v[k]=new Float64Array(P[k].length);});P.t=0;return P;}
+function netP(P,x){if(!P.h){let z=P.b[0];for(let i=0;i<P.d;i++)z+=P.w[i]*x[i];return 1/(1+Math.exp(-z));}let z=P.b2[0];for(let j=0;j<P.h;j++){let a=P.b1[j];for(let i=0;i<P.d;i++)a+=P.W1[j*P.d+i]*x[i];z+=P.W2[j]*Math.tanh(a);}return 1/(1+Math.exp(-z));}
+function netEpoch(P,X,Y,lr){const G={};P.keys.forEach(k=>G[k]=new Float64Array(P[k].length));let L=0;const n=X.length,d=P.d,h=P.h,A=new Float64Array(h);
+ for(let s=0;s<n;s++){const x=X[s];let z;if(!h){z=P.b[0];for(let i=0;i<d;i++)z+=P.w[i]*x[i];}else{z=P.b2[0];for(let j=0;j<h;j++){let a=P.b1[j];for(let i=0;i<d;i++)a+=P.W1[j*d+i]*x[i];A[j]=Math.tanh(a);z+=P.W2[j]*A[j];}}
+  const p=1/(1+Math.exp(-z)),y=Y[s];L+=-(y*Math.log(p+1e-9)+(1-y)*Math.log(1-p+1e-9));const g=(p-y)/n;
+  if(!h){for(let i=0;i<d;i++)G.w[i]+=g*x[i];G.b[0]+=g;}else{G.b2[0]+=g;for(let j=0;j<h;j++){G.W2[j]+=g*A[j];const ga=g*P.W2[j]*(1-A[j]*A[j]);G.b1[j]+=ga;for(let i=0;i<d;i++)G.W1[j*d+i]+=ga*x[i];}}}
+ P.t++;const B1=0.9,B2=0.999;P.keys.forEach(k=>{const p=P[k],m=P.m[k],v=P.v[k],g=G[k];for(let i=0;i<p.length;i++){m[i]=B1*m[i]+(1-B1)*g[i];v[i]=B2*v[i]+(1-B2)*g[i]*g[i];p[i]-=lr*(m[i]/(1-Math.pow(B1,P.t)))/(Math.sqrt(v[i]/(1-Math.pow(B2,P.t)))+1e-8);}});return L/n;}
+function evalSet(P,f,rows){let ok=0,tp=0,fn=0,fp=0;rows.forEach(c=>{const y=netP(P,f(c))>0.5?1:0;if(y===c.t)ok++;if(c.t&&y)tp++;if(c.t&&!y)fn++;if(!c.t&&y)fp++;});return {acc:ok/rows.length,tp,fn,fp};}
+const TRAIN=gen(120,101,true),TEST=gen(300,202,false);
+const FEATS=[{k:'valor',n:'Valor',d:'quanto custa a compra'},{k:'hora',n:'Horário',d:'a hora do dia'},{k:'novo',n:'Aparelho novo',d:'celular nunca visto antes'},{k:'dist',n:'Distância',d:'entre o endereço de entrega e o de cobrança'},{k:'ult',n:'Compras na última hora',d:'quantas o cliente já fez'},{k:'aniv',n:'Aniversário do cliente',d:'a compra é no dia do aniversário'}];
+const NEUR=[1,3,10,50],EPOCHS=400,LV0=Math.log(8),LV1=Math.log(4000);
+const LY=v=>(Math.log(v)-LV0)/(LV1-LV0);
+const brl=v=>v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+const hh=h=>Math.floor(h)+'h'+String(Math.floor((h%1)*60)).padStart(2,'0');
+const pct=a=>Math.round(a*100)+'%';
+const STEP=['AQUECIMENTO','MONTE','TREINE','TESTE','COMPARE (OPCIONAL)'];
+function drawPlane(cv,o){if(!cv)return;const x=cv.getContext('2d'),W=cv.width,H=cv.height,L=64,R=16,T=16,B=40,pw=W-L-R,ph=H-T-B;
+ x.fillStyle='#120e22';x.fillRect(0,0,W,H);const X=h=>L+h/24*pw,Y=v=>T+ph-LY(v)*ph;
+ if(o.pred){const cs=4;x.fillStyle='rgba(201,160,255,.16)';for(let px=0;px<pw;px+=cs)for(let py=0;py<ph;py+=cs){const h=(px+cs/2)/pw*24,v=Math.exp(LV0+(1-(py+cs/2)/ph)*(LV1-LV0));if(o.pred(h,v)>0.5)x.fillRect(L+px,T+py,cs,cs);}}
+ x.strokeStyle='rgba(255,255,255,.08)';x.lineWidth=1;[6,12,18].forEach(h=>{x.beginPath();x.moveTo(X(h),T);x.lineTo(X(h),T+ph);x.stroke();});[10,100,1000].forEach(v=>{x.beginPath();x.moveTo(L,Y(v));x.lineTo(L+pw,Y(v));x.stroke();});
+ x.fillStyle='rgba(255,255,255,.55)';x.font='400 15px Inter, sans-serif';x.textAlign='center';x.textBaseline='top';[0,6,12,18,24].forEach(h=>x.fillText(h+'h',X(h),T+ph+10));x.textAlign='right';x.textBaseline='middle';[[10,'R$ 10'],[100,'R$ 100'],[1000,'R$ 1 mil']].forEach(([v,t])=>x.fillText(t,L-8,Y(v)));
+ if(o.line){const [m,c]=o.line;x.save();x.beginPath();x.rect(L,T,pw,ph);x.clip();x.fillStyle='rgba(201,160,255,.12)';x.beginPath();x.moveTo(L,T+ph-c*ph);x.lineTo(L+pw,T+ph-(m+c)*ph);x.lineTo(L+pw,T);x.lineTo(L,T);x.closePath();x.fill();x.strokeStyle='#ffffff';x.lineWidth=3;x.beginPath();x.moveTo(L,T+ph-c*ph);x.lineTo(L+pw,T+ph-(m+c)*ph);x.stroke();x.restore();}
+ (o.pts||[]).forEach((p,i)=>{const px=X(p.hora),py=Y(p.valor);x.beginPath();if(o.dec){const y=o.dec[i];x.arc(px,py,p.t?6:5,0,7);if(p.t&&y){x.fillStyle='#c9a0ff';x.fill();}else if(p.t&&!y){x.fillStyle='#ff6b8a';x.fill();}else if(!p.t&&y){x.lineWidth=2.5;x.strokeStyle='#ff6b8a';x.stroke();}else{x.fillStyle='rgba(216,212,230,.45)';x.fill();}}else{x.arc(px,py,p.t?5:4,0,7);x.fillStyle=p.t?'#c9a0ff':'rgba(216,212,230,.6)';x.fill();}});
+ if(o.hi){x.beginPath();x.arc(X(o.hi.hora),Y(o.hi.valor),11,0,7);x.strokeStyle='#ffffff';x.lineWidth=2.5;x.stroke();}}
+function drawLoss(cv,ls){if(!cv)return;const x=cv.getContext('2d'),W=cv.width,H=cv.height;x.fillStyle='#120e22';x.fillRect(0,0,W,H);if(!ls.length)return;const mx=Math.max(0.8,ls[0]);x.strokeStyle='#c9a0ff';x.lineWidth=3;x.beginPath();ls.forEach((l,i)=>{const px=12+i/(EPOCHS-1)*(W-24),py=H-12-(l/mx)*(H-24);i?x.lineTo(px,py):x.moveTo(px,py);});x.stroke();}
+class Component extends DCLogic{
+ state={step:0,m:0.7,c:0.12,warmBest:null,machineErr:null,descending:false,feats:['valor','hora'],ni:0,epoch:0,trained:false,ti:0};
+ cvA=React.createRef();cvT=React.createRef();cvL=React.createRef();cvX=React.createRef();losses=[];
+ componentDidMount(){this.draw();}
+ componentDidUpdate(){this.draw();}
+ componentWillUnmount(){cancelAnimationFrame(this.raf);}
+ warmErrors(m,c){let e=0;TRAIN.forEach(p=>{const up=LY(p.valor)>m*(p.hora/24)+c;if((up?1:0)!==p.t)e++;});return e;}
+ is2D(){return this.state.feats.every(k=>k==='valor'||k==='hora');}
+ predFn(){if(!this.net||!this.is2D())return null;const f=this.f,P=this.net;return (h,v)=>netP(P,f({valor:v,hora:h,novo:0,dist:0,ult:0,aniv:0}));}
+ draw(){const s=this.state;drawPlane(this.cvA.current,{pts:TRAIN,line:[s.m,s.c]});drawPlane(this.cvT.current,{pts:TRAIN,pred:this.predFn()});drawLoss(this.cvL.current,this.losses);
+  if(this.cvX.current&&this.net)drawPlane(this.cvX.current,{pts:TEST.slice(0,s.ti),dec:this.testP.slice(0,s.ti).map(p=>p>0.5?1:0),pred:this.predFn(),hi:s.ti?TEST[s.ti-1]:null});}
+ setKnob(k,v){if(this.state.descending)return;const n={[k]:v};const m=k==='m'?v:this.state.m,c=k==='c'?v:this.state.c;const e=this.warmErrors(m,c);n.warmBest=this.state.warmBest==null?e:Math.min(this.state.warmBest,e);this.setState(n);}
+ descend(){if(this.state.descending)return;const K=8;let m=this.state.m,c=this.state.c,i=0;this.setState({descending:true});
+  const tick=()=>{for(let k=0;k<4;k++){let gm=0,gc=0;TRAIN.forEach(p=>{const xh=p.hora/24,z=K*(LY(p.valor)-m*xh-c),pr=1/(1+Math.exp(-z)),g=(pr-p.t)/TRAIN.length;gm+=g*K*(-xh);gc+=g*K*(-1);});m-=0.6*gm;c-=0.6*gc;i++;}
+   this.setState({m,c});if(i<240)this.raf=requestAnimationFrame(tick);else this.setState({descending:false,machineErr:this.warmErrors(m,c)});};tick();}
+ resetNet(){cancelAnimationFrame(this.raf);this.net=null;this.losses=[];this.setState({trained:false,epoch:0,ti:0});}
+ train(){cancelAnimationFrame(this.raf);const keys=this.state.feats,h=NEUR[this.state.ni]===1?0:NEUR[this.state.ni];this.f=scaler(TRAIN,keys);const X=TRAIN.map(this.f),Y=TRAIN.map(c=>c.t);this.net=netInit(keys.length,h,7);this.losses=[];let e=0;const per=h>=50?6:h>=10?12:24;this.setState({trained:false,epoch:0,ti:0});
+  const tick=()=>{for(let i=0;i<per&&e<EPOCHS;i++,e++)this.losses.push(netEpoch(this.net,X,Y,0.03));if(e<EPOCHS){this.setState({epoch:e});this.raf=requestAnimationFrame(tick);}else{this.trainStats=evalSet(this.net,this.f,TRAIN);this.testP=TEST.map(c=>netP(this.net,this.f(c)));this.testStats=evalSet(this.net,this.f,TEST);this.setState({epoch:e,trained:true});}};tick();}
+ bestModel(){if(this.best)return this.best;const keys=['valor','hora','novo','dist','ult'],f=scaler(TRAIN,keys),P=netInit(keys.length,3,7),X=TRAIN.map(f),Y=TRAIN.map(c=>c.t);for(let e=0;e<EPOCHS;e++)netEpoch(P,X,Y,0.03);this.best=evalSet(P,f,TEST);return this.best;}
+ go(i){this.setState({step:i});}
+ renderVals(){const s=this.state,nF=TEST.filter(c=>c.t).length;
+  const steps=STEP.map((l,i)=>({label:(i+1)+' · '+l,go:()=>this.go(i),bg:s.step===i?'rgba(201,160,255,.16)':'rgba(255,255,255,.03)',bd:s.step===i?'#c9a0ff':'rgba(255,255,255,.14)',col:s.step===i?'#ffffff':(i===4?'rgba(255,255,255,.45)':'rgba(255,255,255,.75)')}));
+  const warmErr=this.warmErrors(s.m,s.c);
+  let warmMsg=null;if(s.machineErr!=null)warmMsg='A máquina desceu até '+s.machineErr+' erros. O seu melhor foi '+s.warmBest+'.';
+  const featList=FEATS.map(f=>{const on=s.feats.includes(f.k);return {n:f.n,d:f.d,bg:on?'rgba(201,160,255,.14)':'rgba(255,255,255,.03)',bd:on?'#c9a0ff':'rgba(255,255,255,.14)',toggle:()=>{let F=on?s.feats.filter(k=>k!==f.k):[...s.feats,f.k];if(!F.length)return;F=FEATS.map(x=>x.k).filter(k=>F.includes(k));this.resetNet();this.setState({feats:F});}};});
+  const neuronList=NEUR.map((n,i)=>({n:String(n),bg:s.ni===i?'rgba(201,160,255,.14)':'rgba(255,255,255,.03)',bd:s.ni===i?'#c9a0ff':'rgba(255,255,255,.14)',pick:()=>{this.resetNet();this.setState({ni:i});}}));
+  const configLabel=s.feats.length+(s.feats.length===1?' INFORMAÇÃO':' INFORMAÇÕES')+' · '+NEUR[s.ni]+(NEUR[s.ni]===1?' NEURÔNIO':' NEURÔNIOS');
+  let cur=null,tally=[],testDone=s.ti>=TEST.length;
+  if(s.trained){let ok=0,tp=0,fp=0;for(let i=0;i<s.ti;i++){const y=this.testP[i]>0.5?1:0,c=TEST[i];if(y===c.t)ok++;if(y&&c.t)tp++;if(y&&!c.t)fp++;}
+   tally=[{k:'acertos',v:s.ti?pct(ok/s.ti):'—'},{k:'fraudes pegas',v:tp+' de '+TEST.slice(0,s.ti).filter(c=>c.t).length},{k:'clientes bons bloqueados',v:String(fp)}];
+   if(s.ti){const c=TEST[s.ti-1],p=this.testP[s.ti-1],y=p>0.5?1:0;cur={n:s.ti,valor:brl(c.valor),info:[{k:'horário',v:hh(c.hora)},{k:'aparelho novo',v:c.novo?'sim':'não'},{k:'distância',v:Math.round(c.dist)+' km'},{k:'compras na última hora',v:String(c.ult)},{k:'aniversário',v:c.aniv?'sim':'não'}].filter((_,i)=>s.feats.includes(['hora','novo','dist','ult','aniv'][i])||true),dec:y?'BLOQUEAR':'APROVAR',p:'chance de fraude '+pct(p),decCol:y?'#ff6b8a':'#5fd39a',truth:(c.t?'Era fraude':'Era cliente bom')+(y===c.t?' · acertou':' · errou'),okCol:y===c.t?'#5fd39a':'#ff6b8a'};}}
+  let compareRows=[];if(s.step===4){const b=this.bestModel(),mine=s.trained?this.testStats:null;compareRows=[
+   {name:'Sua rede',acc:mine?pct(mine.acc):'—',desc:mine?configLabel.toLowerCase():'treine a sua rede para aparecer aqui',detail:mine?('fraudes pegas '+mine.tp+' de '+nF+' · bons bloqueados '+mine.fp):'',bd:'#c9a0ff',bg:'rgba(201,160,255,.07)'},
+   {name:'Melhor rede',acc:pct(b.acc),desc:'valor, horário, aparelho novo, distância e compras na última hora · 3 neurônios',detail:'fraudes pegas '+b.tp+' de '+nF+' · bons bloqueados '+b.fp,bd:'rgba(255,255,255,.14)',bg:'rgba(255,255,255,.03)'},
+   {name:'Aprova tudo',acc:pct(1-nF/TEST.length),desc:'nunca bloqueia nada',detail:'fraudes pegas 0 de '+nF+' · bons bloqueados 0',bd:'rgba(255,255,255,.14)',bg:'rgba(255,255,255,.03)'}];}
+  const planeNote=this.is2D()?'Fundo lilás: a região onde a rede bloqueia. A borda dele é a fronteira de decisão.':'Sua rede usa '+s.feats.length+' informações, e este desenho só tem 2 eixos (horário e valor). Por isso a fronteira não cabe aqui. Olhe o erro caindo e a nota.';
+  return {planeNote,steps,isS0:s.step===0,isS1:s.step===1,isS2:s.step===2,isS3:s.step===3,isS4:s.step===4,cvA:this.cvA,cvT:this.cvT,cvL:this.cvL,cvX:this.cvX,
+   m:s.m,c:s.c,onM:e=>this.setKnob('m',parseFloat(e.target.value)),onC:e=>this.setKnob('c',parseFloat(e.target.value)),warmErr:String(warmErr),warmMsg,
+   descend:()=>this.descend(),resetWarm:()=>{cancelAnimationFrame(this.raf);this.setState({m:0.7,c:0.12,warmBest:null,machineErr:null,descending:false});},
+   goMonte:()=>this.go(1),goTreine:()=>this.go(2),goTeste:()=>this.go(3),featList,neuronList,configLabel,epoch:String(s.epoch),trained:s.trained,needTrain:!s.trained,
+   trainPct:s.trained?pct(this.trainStats.acc):'',testPct:s.trained?pct(this.testStats.acc):'',trainLabel:s.trained?'Treinar de novo':(s.epoch?'Treinando…':'Treinar'),
+   train:()=>this.train(),cur,tally,testDone,nextBuy:()=>this.setState({ti:Math.min(TEST.length,s.ti+1)}),allBuys:()=>this.setState({ti:TEST.length}),compareRows};}
+}
+</script>
+</body>
+</html>

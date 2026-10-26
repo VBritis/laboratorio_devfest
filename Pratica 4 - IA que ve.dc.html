@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="_ds/max-design-system-4b19a955-8277-4b34-91f3-faa7900e03d6/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/max-design-system-4b19a955-8277-4b34-91f3-faa7900e03d6/tokens/colors.css">
+<link rel="stylesheet" href="_ds/max-design-system-4b19a955-8277-4b34-91f3-faa7900e03d6/tokens/typography.css">
+<link rel="stylesheet" href="_ds/max-design-system-4b19a955-8277-4b34-91f3-faa7900e03d6/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/max-design-system-4b19a955-8277-4b34-91f3-faa7900e03d6/tokens/radii.css">
+<link rel="stylesheet" href="_ds/max-design-system-4b19a955-8277-4b34-91f3-faa7900e03d6/tokens/effects.css">
+<link rel="stylesheet" href="_ds/max-design-system-4b19a955-8277-4b34-91f3-faa7900e03d6/tokens/base.css">
+<link rel="stylesheet" href="_ds/max-design-system-4b19a955-8277-4b34-91f3-faa7900e03d6/styles.css">
+<script src="_ds/max-design-system-4b19a955-8277-4b34-91f3-faa7900e03d6/_ds_bundle.js"></script>
+<style>
+body{margin:0;background:#0b0915;color:#fff;font-family:Inter,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#c9a0ff}a:hover{color:#e4d2ff}
+</style>
+</helmet>
+<div style="min-height:100vh;background:radial-gradient(120% 40% at 50% 0%,rgba(111,69,232,.22),rgba(0,0,0,0) 70%),#0b0915;color:#fff;font-family:Inter,sans-serif">
+<div style="max-width:760px;margin:0 auto;padding:20px 20px 72px;box-sizing:border-box;display:flex;flex-direction:column;gap:24px">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+    <a href="Laboratorio.dc.html" style="color:rgba(255,255,255,.7);text-decoration:none;font-size:14px">← Laboratório</a>
+    <span style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.5px;color:#c9a0ff">PRÁTICA 4 · 8 MIN</span>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <h1 style="margin:0;font:500 32px/1.15 Inter,sans-serif;letter-spacing:-.5px;text-wrap:balance">Converse com uma IA que vê</h1>
+    <p style="margin:0;font:400 16px/1.5 Inter,sans-serif;color:rgba(255,255,255,.72)">Problema: mexa no que a IA enxerga e no que ela ouve, e veja para onde ela olha.</p>
+  </div>
+  <div style="border:0.5px solid rgba(201,160,255,.45);border-radius:16px;padding:14px 16px;background:rgba(201,160,255,.07);font:italic 400 16px/1.45 Inter,sans-serif;color:#e4d2ff">Aposta: “Se eu mudar a pergunta, ela olha para outro lugar?”</div>
+  <div style="display:flex;flex-wrap:wrap;gap:8px">
+    <sc-for list="{{ steps }}" as="s" hint-placeholder-count="5">
+      <button onClick="{{ s.go }}" style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.5px;padding:10px 12px;border-radius:999px;cursor:pointer;background:{{ s.bg }};border:0.5px solid {{ s.bd }};color:{{ s.col }}">{{ s.label }}</button>
+    </sc-for>
+  </div>
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;padding:4px;border-radius:16px;border:0.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03)">
+    <sc-for list="{{ cases }}" as="c" hint-placeholder-count="2">
+      <button onClick="{{ c.pick }}" style="padding:12px 8px;border-radius:12px;cursor:pointer;font:500 14px/1.2 Inter,sans-serif;color:#ffffff;border:0.5px solid {{ c.bd }};background:{{ c.bg }}">{{ c.n }}</button>
+    </sc-for>
+  </div>
+
+  <sc-if value="{{ isS0 }}" hint-placeholder-val="{{ true }}">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <span style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.5px;color:#9aa3b8">LENTE · COMO A IMAGEM CHEGA PARA A IA</span>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <sc-for list="{{ lenses }}" as="l" hint-placeholder-count="5">
+          <button onClick="{{ l.pick }}" style="padding:10px 14px;border-radius:999px;cursor:pointer;font:400 14px/1 Inter,sans-serif;color:#ffffff;border:0.5px solid {{ l.bd }};background:{{ l.bg }}">{{ l.n }}</button>
+        </sc-for>
+      </div>
+      <p style="margin:0;font:400 14px/1.5 Inter,sans-serif;color:rgba(255,255,255,.6)">Os mesmos filtros do Capítulo 2. Depois, monte a pergunta no passo PROMPT.</p>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isS1 }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <span style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.5px;color:#9aa3b8">PROMPT · A PERGUNTA</span>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <sc-for list="{{ questions }}" as="q" hint-placeholder-count="3">
+          <button onClick="{{ q.pick }}" style="padding:12px 14px;border-radius:16px;cursor:pointer;font:400 16px/1.2 Inter,sans-serif;color:#ffffff;border:0.5px solid {{ q.bd }};background:{{ q.bg }}">{{ q.n }}</button>
+        </sc-for>
+      </div>
+      <span style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.5px;color:#9aa3b8;margin-top:8px">ATÉ DOIS JEITOS DE RESPONDER</span>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <sc-for list="{{ modList }}" as="m" hint-placeholder-count="4">
+          <button onClick="{{ m.toggle }}" style="padding:12px 14px;border-radius:16px;cursor:pointer;font:400 16px/1.2 Inter,sans-serif;color:#ffffff;border:0.5px solid {{ m.bd }};background:{{ m.bg }}">{{ m.n }}</button>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isS3 }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:12px;padding:16px;border-radius:16px;border:0.5px solid #c9a0ff;background:rgba(201,160,255,.07)">
+      <span style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.5px;color:#e4d2ff">DESAFIO · FAÇA A IA PERCEBER QUE O PRINT É GOLPE E EXPLICAR POR QUÊ</span>
+      <sc-for list="{{ checks }}" as="k" hint-placeholder-count="2">
+        <div style="display:flex;align-items:center;gap:12px"><span style="width:28px;height:28px;flex:none;border-radius:999px;display:flex;align-items:center;justify-content:center;font:600 14px/1 Inter,sans-serif;border:0.5px solid {{ k.bd }};background:{{ k.bg }};color:{{ k.col }}">{{ k.mark }}</span><span style="font:400 16px/1.35 Inter,sans-serif">{{ k.t }}</span></div>
+      </sc-for>
+      <sc-if value="{{ won }}" hint-placeholder-val="{{ false }}">
+        <span style="font:600 16px/1.3 Inter,sans-serif;color:#5fd39a">Desafio cumprido.</span>
+      </sc-if>
+      <p style="margin:0;font:400 14px/1.5 Inter,sans-serif;color:rgba(255,255,255,.65)">Mude a lente e o prompt nos passos 1 e 2 e volte aqui.</p>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ showMain }}" hint-placeholder-val="{{ true }}">
+    <div style="display:flex;flex-direction:column;gap:14px;background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.1);border-radius:16px;padding:16px">
+      <canvas ref="{{ cvM }}" width="640" height="480" style="width:100%;height:auto;display:block;border-radius:12px;background:#120e22"></canvas>
+      <div style="display:flex;flex-direction:column;gap:6px"><span style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.5px;color:#9aa3b8">PROMPT</span><span style="font:400 16px/1.45 Inter,sans-serif;color:#c9a0ff">{{ main.prompt }}</span></div>
+      <sc-if value="{{ main.hasSteps }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:8px"><span style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.5px;color:#9aa3b8">RACIOCÍNIO</span>
+          <sc-for list="{{ main.steps }}" as="t" hint-placeholder-count="3"><span style="font:400 16px/1.45 Inter,sans-serif;color:rgba(255,255,255,.8)">{{ t.t }}</span></sc-for>
+        </div>
+      </sc-if>
+      <div style="display:flex;flex-direction:column;gap:6px"><span style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.5px;color:#9aa3b8">RESPOSTA</span><span style="font:500 20px/1.4 Inter,sans-serif">{{ main.answer }}</span></div>
+      <div style="display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:10px"><span style="font:400 12px/1 Inter,sans-serif;color:rgba(255,255,255,.6)">certeza</span><div style="height:8px;border-radius:4px;background:rgba(255,255,255,.08);overflow:hidden"><div style="height:100%;border-radius:4px;background:#c9a0ff;width:{{ main.conf }}"></div></div><span style="font:400 12px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,.7)">{{ main.conf }}</span></div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isS2 }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <span style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.5px;color:#9aa3b8">LADO A LADO · DOIS PROMPTS, DOIS MAPAS DE ATENÇÃO, DOIS RACIOCÍNIOS</span>
+      <x-import component-from-global-scope="MAXDesignSystem_4b19a9.Button" on-click="{{ saveA }}" hint-size="100%,48px">Guardar o prompt atual como A</x-import>
+      <sc-if value="{{ noA }}" hint-placeholder-val="{{ true }}">
+        <p style="margin:0;font:400 14px/1.5 Inter,sans-serif;color:rgba(255,255,255,.65)">Guarde um prompt como A, mude a pergunta no passo PROMPT e volte aqui para ver os dois juntos.</p>
+      </sc-if>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px">
+        <sc-for list="{{ sides }}" as="o" hint-placeholder-count="2">
+          <div style="display:flex;flex-direction:column;gap:10px;padding:14px;border-radius:16px;border:0.5px solid {{ o.bd }};background:rgba(255,255,255,.03)">
+            <span style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.5px;color:#e4d2ff">{{ o.tag }}</span>
+            <canvas ref="{{ o.ref }}" width="640" height="480" style="width:100%;height:auto;display:block;border-radius:10px;background:#120e22"></canvas>
+            <span style="font:400 14px/1.45 Inter,sans-serif;color:#c9a0ff">{{ o.r.prompt }}</span>
+            <sc-for list="{{ o.r.steps }}" as="t" hint-placeholder-count="2"><span style="font:400 14px/1.45 Inter,sans-serif;color:rgba(255,255,255,.75)">{{ t.t }}</span></sc-for>
+            <span style="font:500 16px/1.4 Inter,sans-serif">{{ o.r.answer }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isS4 }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:14px;background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.1);border-radius:16px;padding:16px">
+      <span style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.5px;color:#9aa3b8">COMPARE (OPCIONAL) · UM PROMPT QUE FUNCIONA BEM</span>
+      <canvas ref="{{ cvC }}" width="640" height="480" style="width:100%;height:auto;display:block;border-radius:12px;background:#120e22"></canvas>
+      <span style="font:400 16px/1.45 Inter,sans-serif;color:#c9a0ff">{{ good.prompt }}</span>
+      <sc-for list="{{ good.steps }}" as="t" hint-placeholder-count="3"><span style="font:400 16px/1.45 Inter,sans-serif;color:rgba(255,255,255,.8)">{{ t.t }}</span></sc-for>
+      <span style="font:500 20px/1.4 Inter,sans-serif">{{ good.answer }}</span>
+      <p style="margin:0;font:400 14px/1.5 Inter,sans-serif;color:rgba(255,255,255,.6)">O seu prompt: <span style="color:#ffffff">{{ main.prompt }}</span></p>
+      <x-import component-from-global-scope="MAXDesignSystem_4b19a9.Button" variant="secondary" on-click="{{ useGood }}" hint-size="100%,48px">Usar este prompt</x-import>
+    </div>
+  </sc-if>
+  <p style="margin:0;font:400 12px/1.5 Inter,sans-serif;color:rgba(255,255,255,.45)">Simulação didática: as respostas e os mapas de atenção foram escritos para mostrar como um modelo de visão e linguagem costuma reagir.</p>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const W=640,H=480;
+const LENS=[{k:'orig',n:'Original'},{k:'bordas',n:'Bordas'},{k:'contorno',n:'Contorno'},{k:'borrao',n:'Borrão'},{k:'nitidez',n:'Nitidez'}];
+const QS={abobora:['Quantos olhos ela tem?','Onde está a vela?','Ela parece assustadora?'],print:['O que essa mensagem pede?','Isso é golpe?','Quem mandou essa mensagem?']};
+const MODS=[{k:'passo',n:'pense passo a passo'},{k:'onde',n:'diga onde você olhou'},{k:'uma',n:'responda em uma palavra'},{k:'esp',n:'você é um especialista em fraude'}];
+const cap=t=>t.charAt(0).toUpperCase()+t.slice(1);
+function promptText(cs,q,mods){return [QS[cs][q],...MODS.filter(m=>mods.includes(m.k)).map(m=>cap(m.n)+'.')].join(' ');}
+function respond(cs,lens,q,mods){const P=mods.includes('passo'),Wh=mods.includes('onde'),U=mods.includes('uma'),E=mods.includes('esp'),blur=lens==='borrao',edge=lens==='bordas'||lens==='contorno';let r;
+ if(cs==='abobora'){const EL=[.39,.38,.08,1],ER=[.62,.38,.08,1],MI=[.5,.57,.1,1];
+  if(q===0)r=blur?{spots:[[.5,.45,.38,.6]],steps:['A imagem está borrada.','Vejo duas manchas claras na parte de cima.','Pode ser que sejam olhos.'],ans:'Não consigo ver bem. Talvez 2.',one:'Talvez 2.',where:'Olhei para as manchas claras no alto.',conf:.35}
+   :{spots:[EL,ER],steps:['Procuro recortes na parte de cima do rosto.','Vejo dois triângulos lado a lado.','O triângulo do meio, mais abaixo, é o nariz.'],ans:'Ela tem 2 olhos.',one:'2.',where:'Olhei para os dois triângulos acima do nariz.',conf:edge?.86:.93};
+  if(q===1)r=edge?{spots:[[.5,.55,.3,.45]],steps:['Procuro um ponto de luz.','Nesta imagem só aparecem as bordas, sem brilho.','Não encontro a chama.'],ans:'Não vejo nenhuma vela.',one:'Nenhuma.',where:'Olhei para o miolo, mas sem luz não dá para achar a chama.',conf:.3}
+   :{spots:blur?[[.5,.58,.26,.7]]:[MI,[.5,.42,.06,.5]],steps:['Procuro o ponto mais claro da imagem.','A luz sai pelos recortes, de dentro para fora.','Então a vela está dentro, no miolo.'],ans:blur?'Acho que dentro dela, pela luz.':'A vela está dentro da abóbora, no miolo.',one:'Dentro.',where:'Olhei para a luz que sai pelos olhos e pela boca.',conf:blur?.55:.88};
+  if(q===2)r={spots:[[.5,.5,.3,.85]],steps:['Olho para o rosto inteiro.','Os olhos são triângulos e a boca tem dentes.','A luz de baixo para cima deixa o rosto sombrio.'],ans:'Sim, ela parece assustadora, do jeito que uma abóbora de Halloween deve parecer.',one:'Sim.',where:'Olhei para o rosto inteiro: olhos, nariz e boca.',conf:blur?.5:.8};
+  if(E)r.ans='Como especialista em fraude: nada suspeito numa abóbora. '+r.ans;
+  r.golpe=false;r.reasons=0;}
+ else{const NUM=[.36,.07,.14,1],NC=[.36,.13,.12,.8],MAE=[.16,.33,.07,.9],TROC=[.42,.33,.12,.9],PIX=[.46,.42,.12,1],URG=[.4,.51,.11,.8];
+  if(blur)r={spots:[[.38,.42,.3,.5]],steps:['A imagem está borrada.','Vejo um balão de mensagem, mas não consigo ler as letras.'],ans:'Não consigo ler o texto da mensagem.',one:'Ilegível.',where:'Olhei para o balão, mas as letras se perderam.',conf:.2,golpe:false,reasons:0};
+  else if(q===0)r=E?{spots:[PIX,NUM,URG],steps:['A pessoa pede um PIX, com urgência.','O número não está nos contatos.','Dinheiro, pressa e número novo: são sinais de golpe.'],ans:'Pede um PIX. E tem cara de golpe: um número desconhecido pedindo dinheiro com urgência.',one:'Golpe.',where:'Olhei para “me faz um PIX?” e para o número no alto.',conf:.86,golpe:true,reasons:2}
+   :{spots:[PIX,URG],steps:['Leio o balão de mensagem.','A pessoa pede um PIX.','E diz que é urgente.'],ans:'A mensagem pede um PIX com urgência.',one:'PIX.',where:'Olhei para “me faz um PIX?” e “é urgente”.',conf:.9,golpe:false,reasons:0};
+  else if(q===1)r=(P||E)?{spots:[NUM,TROC,PIX],steps:['O número não está nos contatos.','A pessoa diz que trocou de número.','Logo em seguida pede um PIX, com urgência.','Esse é o padrão do golpe do falso parente.'],ans:E&&!P?'Sim, é golpe. Número desconhecido, troca de número e pedido urgente de PIX são os sinais do golpe do falso parente.':'Sim, é golpe: o golpe do falso parente.',one:'Golpe.',where:'Olhei para o número no alto, para “troquei de número” e para o pedido de PIX.',conf:.92,golpe:true,reasons:3}
+   :{spots:[MAE,TROC],steps:['Vejo uma conversa entre mãe e filho.'],ans:'Pode ser. Parece uma conversa de família, mas é bom confirmar.',one:'Talvez.',where:'Olhei para “Oi, mãe” e “troquei de número”.',conf:.48,golpe:false,reasons:0};
+  else r=E?{spots:[NUM,NC],steps:['O número não está nos contatos.','A pessoa só diz que é da família.','Não há nada que prove quem é.'],ans:'Um número desconhecido que se diz filho. Não dá para saber quem é.',one:'Desconhecido.',where:'Olhei para o número e para o aviso “não está nos seus contatos”.',conf:.8,golpe:false,reasons:0}
+   :{spots:[MAE,TROC],steps:['A mensagem começa com “Oi, mãe”.','Quem escreve diz que trocou de número.'],ans:'O filho ou a filha, que trocou de número.',one:'Filho.',where:'Olhei para “Oi, mãe” e “troquei de número”.',conf:.74,golpe:false,reasons:0};
+  if(edge)r.conf=Math.max(.2,r.conf-.15);}
+ if(lens==='nitidez')r.conf=Math.min(.97,r.conf+.03);
+ let answer=U?r.one:r.ans;if(Wh&&!U)answer+=' '+r.where;
+ const steps=P?r.steps.map(t=>({t})):[];const explained=r.reasons>0&&(!U||P);
+ return {spots:r.spots,steps,hasSteps:P,answer,conf:Math.round(r.conf*100)+'%',golpe:r.golpe,explained,prompt:promptText(cs,q,mods),cs,lens};}
+function drawPrint(x){x.fillStyle='#0e0d14';x.fillRect(0,0,W,H);x.fillStyle='#1a1726';x.fillRect(0,0,W,84);x.fillStyle='#3a3350';x.beginPath();x.arc(46,42,24,0,7);x.fill();x.fillStyle='#ffffff';x.font='600 22px Inter, sans-serif';x.textBaseline='middle';x.fillText('+55 51 98742-3310',86,32);x.fillStyle='#ff8fa6';x.font='400 16px Inter, sans-serif';x.fillText('não está nos seus contatos',86,60);
+ x.fillStyle='#262236';const bx=40,by=120,bw=440,bh=170;x.beginPath();x.moveTo(bx+16,by);x.arcTo(bx+bw,by,bx+bw,by+bh,16);x.arcTo(bx+bw,by+bh,bx,by+bh,16);x.arcTo(bx,by+bh,bx,by,16);x.arcTo(bx,by,bx+bw,by,4);x.fill();
+ x.fillStyle='#ffffff';x.font='400 24px Inter, sans-serif';x.fillText('Oi, mãe, troquei de número.',bx+22,by+38);x.fillText('Salva esse aí. Me faz um PIX?',bx+22,by+80);x.fillText('É urgente, depois te explico.',bx+22,by+122);x.fillStyle='rgba(255,255,255,.45)';x.font='400 14px Inter, sans-serif';x.fillText('03:14',bx+bw-58,by+bh-18);
+ x.fillStyle='#1a1726';x.fillRect(0,H-70,W,70);x.fillStyle='#262236';x.beginPath();x.arc(W-44,H-35,22,0,7);x.fill();x.fillStyle='rgba(255,255,255,.4)';x.font='400 18px Inter, sans-serif';x.fillText('Mensagem',40,H-35);}
+function lensApply(src,lens){if(lens==='orig')return src;const d=src.data,n=W*H,g=new Float32Array(n);for(let i=0;i<n;i++)g[i]=.299*d[i*4]+.587*d[i*4+1]+.114*d[i*4+2];const out=new ImageData(W,H),o=out.data;
+ const conv=(arr,k)=>{const r=new Float32Array(n);for(let y=1;y<H-1;y++)for(let x=1;x<W-1;x++){let s=0,q=0;for(let j=-1;j<=1;j++)for(let i=-1;i<=1;i++)s+=k[q++]*arr[(y+j)*W+x+i];r[y*W+x]=s;}return r;};
+ const paint=(m,sc)=>{for(let i=0;i<n;i++){const t=Math.min(1,Math.abs(m[i])/sc);o[i*4]=11+217*t;o[i*4+1]=9+201*t;o[i*4+2]=21+234*t;o[i*4+3]=255;}};
+ if(lens==='bordas'){const a=conv(g,[-1,0,1,-2,0,2,-1,0,1]),b=conv(g,[-1,-2,-1,0,0,0,1,2,1]);const m=new Float32Array(n);for(let i=0;i<n;i++)m[i]=Math.hypot(a[i],b[i]);paint(m,260);}
+ if(lens==='contorno')paint(conv(g,[0,1,0,1,-4,1,0,1,0]),90);
+ if(lens==='borrao'||lens==='nitidez'){for(let c=0;c<3;c++){let ch=new Float32Array(n);for(let i=0;i<n;i++)ch[i]=d[i*4+c];if(lens==='borrao'){for(let p=0;p<3;p++){const t=new Float32Array(n),R=5;for(let y=0;y<H;y++){let s=0;for(let x=-R;x<=R;x++)s+=ch[y*W+Math.min(W-1,Math.max(0,x))];for(let x=0;x<W;x++){t[y*W+x]=s/(2*R+1);s+=ch[y*W+Math.min(W-1,x+R+1)]-ch[y*W+Math.max(0,x-R)];}}for(let x=0;x<W;x++){let s=0;for(let y=-R;y<=R;y++)s+=t[Math.min(H-1,Math.max(0,y))*W+x];for(let y=0;y<H;y++){ch[y*W+x]=s/(2*R+1);s+=t[Math.min(H-1,y+R+1)*W+x]-t[Math.max(0,y-R)*W+x];}}}}else ch=conv(ch,[0,-1,0,-1,5,-1,0,-1,0]).map((v,i)=>v||d[i*4+c]);for(let i=0;i<n;i++)o[i*4+c]=Math.max(0,Math.min(255,ch[i]));}for(let i=0;i<n;i++)o[i*4+3]=255;}
+ return out;}
+const STEP=['LENTE','PROMPT','LADO A LADO','DESAFIO','COMPARE (OPCIONAL)'];
+class Component extends DCLogic{
+ state={step:0,cs:'abobora',lens:'orig',q:0,mods:[],A:null,imgOk:false};
+ cvM=React.createRef();cvA=React.createRef();cvB=React.createRef();cvC=React.createRef();cache={};
+ componentDidMount(){const im=new Image();im.onload=()=>{this.img=im;this.cache={};this.setState({imgOk:true});};im.src='assets/abobora.jpg';this.paintAll();}
+ componentDidUpdate(){this.paintAll();}
+ base(cs,lens){const key=cs+'|'+lens;if(this.cache[key])return this.cache[key];const c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');
+  if(cs==='abobora'){if(!this.img){x.fillStyle='#120e22';x.fillRect(0,0,W,H);return c;}const iw=this.img.width,ih=this.img.height,cw=ih*W/H,sx=Math.max(0,Math.min(iw-cw,iw*.62-cw/2));x.drawImage(this.img,sx,0,cw,ih,0,0,W,H);}else drawPrint(x);
+  if(lens!=='orig'){const id=lensApply(x.getImageData(0,0,W,H),lens);x.putImageData(id,0,0);}this.cache[key]=c;return c;}
+ paint(cv,r){if(!cv||!r)return;const x=cv.getContext('2d');x.globalCompositeOperation='source-over';x.drawImage(this.base(r.cs,r.lens),0,0);x.fillStyle='rgba(11,9,21,.5)';x.fillRect(0,0,W,H);x.globalCompositeOperation='screen';
+  r.spots.forEach(([cx,cy,rad,a])=>{const g=x.createRadialGradient(cx*W,cy*H,0,cx*W,cy*H,rad*W);g.addColorStop(0,'rgba(240,220,255,'+a+')');g.addColorStop(.45,'rgba(201,160,255,'+(a*.65)+')');g.addColorStop(1,'rgba(111,69,232,0)');x.fillStyle=g;x.fillRect(0,0,W,H);});x.globalCompositeOperation='source-over';}
+ cur(){const s=this.state;return respond(s.cs,s.lens,s.q,s.mods);}
+ good(){const cs=this.state.cs;return cs==='print'?respond('print','orig',1,['esp','passo']):respond('abobora','orig',0,['passo','onde']);}
+ paintAll(){const s=this.state;this.paint(this.cvM.current,this.cur());this.paint(this.cvC.current,this.good());if(s.step===2){this.paint(this.cvA.current,s.A?respond(s.A.cs,s.A.lens,s.A.q,s.A.mods):null);this.paint(this.cvB.current,this.cur());}}
+ renderVals(){const s=this.state,main=this.cur(),act=(on)=>({bg:on?'rgba(201,160,255,.14)':'rgba(255,255,255,.03)',bd:on?'#c9a0ff':'rgba(255,255,255,.14)'});
+  const steps=STEP.map((l,i)=>({label:(i+1)+' · '+l,go:()=>this.setState({step:i}),bg:s.step===i?'rgba(201,160,255,.16)':'rgba(255,255,255,.03)',bd:s.step===i?'#c9a0ff':'rgba(255,255,255,.14)',col:s.step===i?'#ffffff':(i===4?'rgba(255,255,255,.45)':'rgba(255,255,255,.75)')}));
+  const cases=[{k:'abobora',n:'A abóbora'},{k:'print',n:'O print do PIX'}].map(c=>({n:c.n,...act(s.cs===c.k),pick:()=>this.setState({cs:c.k,q:0})}));
+  const lenses=LENS.map(l=>({n:l.n,...act(s.lens===l.k),pick:()=>this.setState({lens:l.k})}));
+  const questions=QS[s.cs].map((n,i)=>({n,...act(s.q===i),pick:()=>this.setState({q:i})}));
+  const modList=MODS.map(m=>{const on=s.mods.includes(m.k);return {n:m.n,...act(on),toggle:()=>{let M=on?s.mods.filter(k=>k!==m.k):[...s.mods,m.k];if(M.length>2)M=M.slice(-2);this.setState({mods:M});}};});
+  const ok1=s.cs==='print'&&main.golpe,ok2=ok1&&main.explained;
+  const ck=(ok,t)=>({t,mark:ok?'✓':'',bd:ok?'#5fd39a':'rgba(255,255,255,.3)',bg:ok?'rgba(95,211,154,.15)':'rgba(0,0,0,0)',col:'#5fd39a'});
+  const checks=[ck(s.cs==='print','Escolha o caso do print'),ck(ok1,'A IA diz que é golpe'),ck(ok2,'A IA explica por quê')];
+  const A=s.A?respond(s.A.cs,s.A.lens,s.A.q,s.A.mods):null;
+  const sides=[];if(A)sides.push({tag:'A',ref:this.cvA,r:A,bd:'rgba(255,255,255,.2)'});sides.push({tag:A?'B · ATUAL':'ATUAL',ref:this.cvB,r:main,bd:'#c9a0ff'});
+  return {steps,cases,lenses,questions,modList,isS0:s.step===0,isS1:s.step===1,isS2:s.step===2,isS3:s.step===3,isS4:s.step===4,showMain:s.step<2||s.step===3,cvM:this.cvM,cvC:this.cvC,main,checks:checks.slice(1).map((c,i)=>c).length?checks:checks,won:ok2,
+   saveA:()=>this.setState({A:{cs:s.cs,lens:s.lens,q:s.q,mods:[...s.mods]}}),noA:!s.A,sides,good:this.good(),
+   useGood:()=>{const g=s.cs==='print'?{lens:'orig',q:1,mods:['esp','passo']}:{lens:'orig',q:0,mods:['passo','onde']};this.setState({...g,step:1});}};}
+}
+</script>
+</body>
+</html>

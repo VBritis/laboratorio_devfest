@@ -1,0 +1,31 @@
+/* ══════════════════════════════════════════════════════════════
+   MAX — Effects: blur, glow, transitions
+   backdrop-filter: blur() makes surfaces read as "frosted glass" over
+   content. Animations are short (.12s–.32s) on three easings:
+   cubic-bezier(.4,0,.2,1) (iOS default), cubic-bezier(.32,.72,0,1)
+   (fv-card modal + side menu) and ease-in-out (waveform bars).
+   ══════════════════════════════════════════════════════════════ */
+:root {
+  /* Blur levels */
+  --blur-sm:  blur(12px); /* @kind other */  /* leve   — back button · modal close      */
+  --blur-md:  blur(20px); /* @kind other */  /* padrão — balance, hero, voice, toasts   */
+  --blur-lg:  blur(32px); /* @kind other */  /* forte  — tab bar · bottom sheets        */
+
+  /* Active-tab glow */
+  --glow-purple: 0 0 20px rgba(155, 106, 250, 0.25); /* @kind shadow */
+
+  /* Easings */
+  --ease-ios:   cubic-bezier(.4, 0, .2, 1); /* @kind other */    /* default / toggles / sheet */
+  --ease-modal: cubic-bezier(.32, .72, 0, 1); /* @kind other */  /* fv-card modal · side menu */
+
+  /* Durations */
+  --dur-fast:   .12s; /* @kind other */   /* list-item hover            */
+  --dur-tap:    .15s; /* @kind other */   /* button press (bg+transform)*/
+  --dur-toggle: .22s; /* @kind other */   /* switch toggle              */
+  --dur-overlay:.28s; /* @kind other */   /* backdrop fade              */
+  --dur-modal:  .3s; /* @kind other */    /* centered modal             */
+  --dur-sheet:  .32s; /* @kind other */   /* bottom sheet in/out        */
+
+  /* Press feedback */
+  --press-scale: scale(.92); /* @kind other */
+}

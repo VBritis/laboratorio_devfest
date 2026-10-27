@@ -1,0 +1,2 @@
+Coloque aqui o arquivo noite-na-taverna.txt (texto do livro, em UTF-8).
+Sem ele, a Prática 3 usa um texto de exemplo curto.

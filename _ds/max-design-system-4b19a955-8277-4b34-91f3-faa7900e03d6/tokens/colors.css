@@ -1,0 +1,69 @@
+/* ══════════════════════════════════════════════════════════════
+   MAX — Colors
+   The palette is deliberately sober. Deep blacks for background, a
+   scale of transparent whites for everything neutral (cards, borders,
+   text), and SEMANTIC colors that appear only when they carry meaning:
+   green = credit/success, red = error/loss, purple = brand accent,
+   amber = attention.
+   ══════════════════════════════════════════════════════════════ */
+:root {
+  /* ── Base / solid ─────────────────────────────────────────── */
+  --c-black: #000000;          /* app background — always pure   */
+  --c-white: #ffffff;          /* primary text · CTAs            */
+  --c-deep-navy: #0a0320;       /* text on white (primary button) */
+  --c-modal-bg: #141414;        /* centered modal (.fv-card) bg   */
+
+  /* ── Brand ────────────────────────────────────────────────── */
+  --c-purple: #9b6afa;          /* accent — active tab, PIN, glow */
+  --c-purple-soft: #c8afff;     /* text/icon over purple tint     */
+  --c-purple-solid: #4c0fc4;    /* receipt-card border in chat    */
+
+  /* ── Semantic ─────────────────────────────────────────────── */
+  --c-green: #2eb376;           /* success · dispute won · status */
+  --c-green-in: #4ade80;        /* positive amount in statement   */
+  --c-red: #ef4444;             /* error · block · critical       */
+  --c-red-soft: #f87171;        /* destructive text/icon (.danger)*/
+  --c-amber: #f59e0b;           /* attention · pending · waiting  */
+  --c-info: #60a5fa;            /* info banner border             */
+
+  /* ── Surfaces — transparent white over #000 ───────────────── */
+  --surface-025: rgba(255, 255, 255, 0.025); /* subtlest card (rare)   */
+  --surface-03:  rgba(255, 255, 255, 0.03);  /* settings groups        */
+  --surface-04:  rgba(255, 255, 255, 0.04);  /* DEFAULT card · balance */
+  --surface-05:  rgba(255, 255, 255, 0.05);  /* form inputs · hero     */
+  --surface-06:  rgba(255, 255, 255, 0.06);  /* action box · icon wrap */
+  --surface-07:  rgba(255, 255, 255, 0.07);  /* secondary cards        */
+  --surface-08:  rgba(255, 255, 255, 0.08);  /* active tab · sec. btn  */
+  --surface-10:  rgba(255, 255, 255, 0.10);  /* pressed state          */
+  --surface-14:  rgba(255, 255, 255, 0.14);  /* active / pressed close */
+
+  /* ── Borders — transparent white, always 0.5px solid ──────── */
+  --border-05: rgba(255, 255, 255, 0.05);  /* list-item separator      */
+  --border-06: rgba(255, 255, 255, 0.06);  /* subtle group border      */
+  --border-08: rgba(255, 255, 255, 0.08);  /* DEFAULT card/button border*/
+  --border-10: rgba(255, 255, 255, 0.10);  /* voice card · mic orb     */
+  --border-12: rgba(255, 255, 255, 0.12);  /* form input · avatar      */
+  --border-14: rgba(255, 255, 255, 0.14);  /* Pix action · chat input  */
+  --border-20: rgba(255, 255, 255, 0.20);  /* secondary (outline) btn  */
+
+  /* ── Text — transparent white over dark ───────────────────── */
+  --text-primary: #ffffff;                  /* titles, values         */
+  --text-secondary: rgba(255, 255, 255, 0.65); /* body, descriptions  */
+  --text-tertiary: rgba(255, 255, 255, 0.45);  /* captions, hints     */
+  --text-quaternary: rgba(255, 255, 255, 0.32);/* labels, placeholders*/
+
+  /* ── Tints — semantic backgrounds (chips, banners, pills) ──── */
+  --tint-purple: rgba(155, 106, 250, 0.10);
+  --tint-green:  rgba(46, 179, 118, 0.14);
+  --tint-red:    rgba(239, 68, 68, 0.14);
+  --tint-amber:  rgba(245, 158, 11, 0.14);
+
+  /* ── Background overlays ──────────────────────────────────── */
+  --ambient: radial-gradient(ellipse 120% 85% at 50% 0%,
+              rgba(28, 2, 70, 0.85) 0%,
+              rgba(20, 2, 50, 0.4) 35%,
+              rgba(10, 1, 25, 0.1) 55%,
+              transparent 70%); /* @kind color */          /* home top · splash · onboarding */
+  --sheet-navy: rgba(14, 8, 24, 0.96);     /* bottom sheet (needs blur)      */
+  --backdrop:   rgba(0, 0, 0, 0.78);       /* modal backdrop (needs blur)    */
+}

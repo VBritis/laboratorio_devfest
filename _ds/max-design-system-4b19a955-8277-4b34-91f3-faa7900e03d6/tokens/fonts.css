@@ -1,0 +1,6 @@
+/* ══════════════════════════════════════════════════════════════
+   MAX — Webfonts
+   Inter is the single typeface of the app. JetBrains Mono is used
+   only for code/spec readouts in the documentation, not in the app.
+   ══════════════════════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');

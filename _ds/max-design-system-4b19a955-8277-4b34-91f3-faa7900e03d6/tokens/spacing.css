@@ -1,0 +1,14 @@
+/* ══════════════════════════════════════════════════════════════
+   MAX — Spacing
+   8-point scale. Horizontal screen padding is the one exception (20px).
+   ══════════════════════════════════════════════════════════════ */
+:root {
+  --sp-1: 8px;
+  --sp-2: 16px;
+  --sp-3: 24px;
+  --sp-4: 32px;
+  --sp-5: 40px;
+  --sp-6: 48px;
+
+  --screen-pad: 20px;   /* standard horizontal screen padding (exception) */
+}

@@ -1,0 +1,15 @@
+/* ══════════════════════════════════════════════════════════════
+   MAX — Borders & radii
+   Border thickness is ALWAYS 0.5px solid. 1px is only allowed on
+   semantic banners (warning/info) and the chat receipt card, where
+   the border carries meaning rather than just delimiting a surface.
+   ══════════════════════════════════════════════════════════════ */
+:root {
+  --bd-width: 0.5px; /* @kind other */                 /* default — everywhere          */
+  --bd-width-semantic: 1px; /* @kind other */          /* banners · receipt card only   */
+
+  --r-sm:   8px;     /* chips · small icons · btn-icon-label-box · pd  */
+  --r-md:   16px;    /* cards · inputs · buttons · list groups         */
+  --r-lg:   24px;    /* sheet tops · .fv-card · chat input · toast     */
+  --r-pill: 9999px;  /* avatars · circular close · status badges       */
+}
